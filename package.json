@@ -1,0 +1,51 @@
+{
+  "name": "claude-ios-session-cleaner",
+  "version": "0.1.0",
+  "description": "Local desktop helper for clearing stale Claude iOS session cookies through a LAN mitmproxy.",
+  "main": "src/main.js",
+  "author": "Local-only MVP",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable",
+    "dist:mac": "electron-builder --mac dmg zip",
+    "dist": "electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "app.local.claude-ios-session-cleaner",
+    "productName": "Claude iOS Session Cleaner",
+    "files": [
+      "src/**/*",
+      "proxy/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "proxy/**/*"
+    ],
+    "extraMetadata": {
+      "main": "src/main.js"
+    },
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

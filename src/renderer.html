@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude iOS Session Cleaner</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <p class="eyebrow">Local-only proxy helper</p>
+        <h1>Claude iOS Session Cleaner</h1>
+        <p class="subtitle">解决 Claude iOS 出现 “Something went wrong” 的登录异常问题。</p>
+      </section>
+
+      <section class="guide">
+        <article class="step-card">
+          <div class="step-heading">
+            <span class="step-index">1</span>
+            <div>
+              <h2>启动服务</h2>
+              <p>点击启动代理，软件会在这台电脑上开启本地代理服务。</p>
+            </div>
+          </div>
+          <div class="step-action">
+            <button id="startButton" class="primary">启动代理</button>
+            <button id="installButton" class="secondary" hidden>安装 mitmproxy</button>
+          </div>
+          <p id="serviceMessage" class="message"></p>
+          <p id="errorBox" class="error" hidden></p>
+        </article>
+
+        <article class="step-card">
+          <div class="step-heading">
+            <span class="step-index">2</span>
+            <div>
+              <h2>iPhone 设置</h2>
+              <p>请按下面每一步完成手机端设置。</p>
+            </div>
+          </div>
+
+          <div class="phone-steps">
+            <div class="phone-step">
+              <span>A</span>
+              <div>
+                <strong>连接同一个 Wi-Fi</strong>
+                <p>让 iPhone 和这台电脑连接同一个 Wi-Fi。不要使用 iPhone 蜂窝网络，也不要用这台 iPhone 给电脑开热点。</p>
+              </div>
+            </div>
+
+            <div class="phone-step">
+              <span>B</span>
+              <div>
+                <strong>设置 Wi-Fi HTTP Proxy</strong>
+                <p>打开 iPhone：设置 -> Wi-Fi -> 当前网络 -> HTTP 代理 -> 手动。</p>
+                <p>填写 <span class="mono">Server: 198.18.0.1</span>　<span class="mono">Port: 9091</span>，然后点保存。</p>
+              </div>
+            </div>
+
+            <div class="phone-step">
+              <span>C</span>
+              <div>
+                <strong>打开证书页面</strong>
+                <p>在 iPhone Safari 打开 <span class="mono">http://mitm.it</span>。</p>
+              </div>
+            </div>
+
+            <div class="phone-step">
+              <span>D</span>
+              <div>
+                <strong>安装并信任证书</strong>
+                <p>安装 iOS 证书后，进入：设置 -> 通用 -> 关于本机 -> 证书信任设置，开启完全信任。</p>
+              </div>
+            </div>
+
+            <div class="phone-step">
+              <span>E</span>
+              <div>
+                <strong>重开 Claude iOS</strong>
+                <p>强退 Claude iOS，再重新打开。完成后看第 3 步进度。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-heading">
+            <span class="step-index">3</span>
+            <div>
+              <h2>进度</h2>
+              <p>打开 Claude iOS 后，下面会显示处理进度。</p>
+            </div>
+          </div>
+          <div id="progressList" class="progress-list"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>
